@@ -12,16 +12,21 @@ interface ResponseProps {
 }
 
 export default async function PostsPage() {
-  const response = await fetch('https://dummyjson.com/posts');
+  
+  const response = await fetch('https://dummyjson.com/posts', {
+    cache: 'force-cache',
+    next: {
+      revalidate: 60
+    }
+  });
+
   const data: ResponseProps = await response.json();
 
   async function handleFetchPost() {
     'use server'
     const response = await fetch('https://dummyjson.com/posts');
     const data: ResponseProps = await response.json();
-    console.log("🚀 data:", data.posts)
 
-    console.log('Clicou aqui')
   }
 
   async function handleSearchUsers(formData: FormData) {
@@ -30,8 +35,6 @@ export default async function PostsPage() {
 
     const response = await fetch(`https://dummyjson.com/posts/user/${userId}`);
     const data: ResponseProps = await response.json();
-
-    console.log("🚀 ~ handleSearchUsers ~ porId:", data)
 
   }
 
