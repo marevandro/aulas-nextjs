@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { Button } from "../components/button";
 
-interface PostProps {
+export interface PostProps {
   id: number;
   title: string;
   body: string;
@@ -61,6 +62,9 @@ export default async function PostsPage() {
           <div key={post.id} className="bg-gray-200 p-4 rounded-md">
             <h2 className="font-bold">{post?.title}</h2>
             <p>{post.body}</p>
+            <Link href={`/posts/${post.id}`} className="text-blue-500 mt-2">
+              Acessar detalhes do post
+            </Link>
           </div>
         ))}
       </div>
